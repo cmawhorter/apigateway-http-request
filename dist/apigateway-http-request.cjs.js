@@ -865,7 +865,7 @@ function assertValidStatusCode(value) {
 var BaseResponse = function (_HttpMessage) {
   inherits(BaseResponse, _HttpMessage);
 
-  function BaseResponse(statusCode, headers, body, requestId) {
+  function BaseResponse(body, statusCode, headers, requestId) {
     classCallCheck(this, BaseResponse);
 
     var _this = possibleConstructorReturn(this, (BaseResponse.__proto__ || Object.getPrototypeOf(BaseResponse)).call(this, headers, body, requestId));
@@ -929,9 +929,7 @@ var ErrorResponse = function (_BaseResponse) {
   function ErrorResponse(message, type, statusCode, headers, requestId) {
     classCallCheck(this, ErrorResponse);
 
-    var _this = possibleConstructorReturn(this, (ErrorResponse.__proto__ || Object.getPrototypeOf(ErrorResponse)).call(this, {}, statusCode, headers, requestId));
-    // pass empty object so correct headers get added in Base
-
+    var _this = possibleConstructorReturn(this, (ErrorResponse.__proto__ || Object.getPrototypeOf(ErrorResponse)).call(this, undefined, statusCode, headers, requestId));
 
     _this.type = type || ErrorResponse.UNKNOWN;
     _this.message = message || null;
