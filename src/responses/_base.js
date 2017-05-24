@@ -2,7 +2,7 @@ import HttpMessage from '../lib/http-message.js';
 import { assertValidStatusCode } from '../lib/status-codes.js';
 
 export default class BaseResponse extends HttpMessage {
-  constructor(statusCode, headers, body, requestId) {
+  constructor(body, statusCode, headers, requestId) {
     super(headers, body, requestId);
     this._statusCode = statusCode || 0;
   }

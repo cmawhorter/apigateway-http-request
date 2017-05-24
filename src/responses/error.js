@@ -2,8 +2,7 @@ import BaseResponse from './_base.js';
 
 export default class ErrorResponse extends BaseResponse {
   constructor(message, type, statusCode, headers, requestId) {
-    // pass empty object so correct headers get added in Base
-    super({}, statusCode, headers, requestId);
+    super(undefined, statusCode, headers, requestId);
     this.type       = type || ErrorResponse.UNKNOWN;
     this.message    = message || null;
     this.code       = null;
