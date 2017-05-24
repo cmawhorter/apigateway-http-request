@@ -10,7 +10,7 @@ describe('ApigatewayHttpSuccessResponse', function() {
     });
     it('should be serializable', function() {
       let result = new ApigatewayHttpSuccessResponse();
-      expect(result.toJSON()).toIncludeKeys([
+      expect(result.format()).toIncludeKeys([
         'statusCode',
         'headers',
         'body',

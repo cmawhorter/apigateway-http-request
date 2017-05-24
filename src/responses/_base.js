@@ -28,7 +28,7 @@ export default class BaseResponse extends HttpMessage {
     return this.body;
   }
 
-  toJSON() {
+  format() {
     let statusCode  = this.statusCode;
     let body        = this.toResponse();
     let encBody     = null;
