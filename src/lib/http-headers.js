@@ -17,7 +17,7 @@ export default class HttpHeaders {
 
   get(headerName) {
     let headerValues = find(this._collection, headerName);
-    return headerValues[0];
+    return null === headerValues ? undefined : headerValues[0];
   }
 
   add(headerName, headerValue) {

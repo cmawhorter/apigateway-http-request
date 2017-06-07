@@ -667,7 +667,7 @@ var HttpHeaders = function () {
     key: 'get',
     value: function get$$1(headerName) {
       var headerValues = find(this._collection, headerName);
-      return headerValues[0];
+      return null === headerValues ? undefined : headerValues[0];
     }
   }, {
     key: 'add',
@@ -887,8 +887,8 @@ var BaseResponse = function (_HttpMessage) {
       return this.body;
     }
   }, {
-    key: 'toJSON',
-    value: function toJSON() {
+    key: 'format',
+    value: function format() {
       var statusCode = this.statusCode;
       var body = this.toResponse();
       var encBody = null;

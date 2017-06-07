@@ -22,4 +22,12 @@ describe('ApigatewayHttpRequest', function() {
       ]);
     });
   });
+  describe('#header', function() {
+    it('should support missing headers', function() {
+      let result = new ApigatewayHttpRequest();
+      expect(result.headers.get('missing')).toEqual(undefined);
+      result.headers.add('there', 'hello');
+      expect(result.headers.get('there')).toEqual('hello');
+    });
+  });
 });
