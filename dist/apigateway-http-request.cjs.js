@@ -191,7 +191,9 @@ uuid.v4 = v4;
 var index$2 = uuid;
 
 var index$6 = createCommonjsModule(function (module, exports) {
+/* eslint-disable node/no-deprecated-api */
 var buffer$$1 = buffer;
+var Buffer = buffer$$1.Buffer;
 
 if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
   module.exports = buffer$$1;
@@ -960,21 +962,21 @@ ErrorResponse.API = 'api_error';
 ErrorResponse.AUTH = 'authentication_error';
 ErrorResponse.INVALID_REQUEST = 'invalid_request_error';
 
-var ObjectResponse = function (_BaseResponse) {
-  inherits(ObjectResponse, _BaseResponse);
+var SuccessResponse = function (_BaseResponse) {
+  inherits(SuccessResponse, _BaseResponse);
 
-  function ObjectResponse(body, statusCode, headers, requestId) {
-    classCallCheck(this, ObjectResponse);
-    return possibleConstructorReturn(this, (ObjectResponse.__proto__ || Object.getPrototypeOf(ObjectResponse)).call(this, body, statusCode, headers, requestId));
+  function SuccessResponse(body, statusCode, headers, requestId) {
+    classCallCheck(this, SuccessResponse);
+    return possibleConstructorReturn(this, (SuccessResponse.__proto__ || Object.getPrototypeOf(SuccessResponse)).call(this, body, statusCode, headers, requestId));
   }
 
-  createClass(ObjectResponse, [{
+  createClass(SuccessResponse, [{
     key: 'toResponse',
     value: function toResponse() {
       return this.body;
     }
   }]);
-  return ObjectResponse;
+  return SuccessResponse;
 }(BaseResponse);
 
 function fromIncomingEvent(event, requestId) {
@@ -1002,6 +1004,6 @@ function fromIncomingEvent(event, requestId) {
 exports.ApigatewayHttpRequest = ApigatewayHttpRequest;
 exports.ApigatewayHttpBaseResponse = BaseResponse;
 exports.ApigatewayHttpErrorResponse = ErrorResponse;
-exports.ApigatewayHttpSuccessResponse = ObjectResponse;
+exports.ApigatewayHttpSuccessResponse = SuccessResponse;
 exports.fromIncomingEvent = fromIncomingEvent;
 //# sourceMappingURL=apigateway-http-request.cjs.js.map

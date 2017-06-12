@@ -1,0 +1,10 @@
+/node_modules/
+/src/
+/test/
+.editorconfig
+.gitignore
+.travis.yml
+.eslintrc.js
+yarn.lock
+*.log
+rollup.config.js
