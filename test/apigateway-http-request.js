@@ -1,15 +1,15 @@
 'use strict';
 
-const ApigatewayHttpRequest = require('../src/main.js').ApigatewayHttpRequest;
+var ApigatewayHttpRequest = require('../src/main.js').ApigatewayHttpRequest;
 
 describe('ApigatewayHttpRequest', function() {
   describe('#ctor', function() {
     it('should take an event and return an ApigatewayHttpRequest object', function() {
-      let result = new ApigatewayHttpRequest();
+      var result = new ApigatewayHttpRequest();
       expect(result).toBeAn(ApigatewayHttpRequest);
     });
     it('should be serializable', function() {
-      let result = new ApigatewayHttpRequest();
+      var result = new ApigatewayHttpRequest();
       expect(result.toJSON()).toIncludeKeys([
         'resource',
         'method',
@@ -24,7 +24,7 @@ describe('ApigatewayHttpRequest', function() {
   });
   describe('#header', function() {
     it('should support missing headers', function() {
-      let result = new ApigatewayHttpRequest();
+      var result = new ApigatewayHttpRequest();
       expect(result.headers.get('missing')).toEqual(undefined);
       result.headers.add('there', 'hello');
       expect(result.headers.get('there')).toEqual('hello');
