@@ -32,16 +32,23 @@ export default class BaseResponse extends HttpMessage {
     let statusCode  = this.statusCode;
     let body        = this.toResponse();
     let encBody     = null;
+    let contentType = 'text/plain';
     if (Buffer.isBuffer(body)) {
       encBody = body.toString('base64');
-      this.headers.add('content-type', 'application/octet-stream');
+      contentType = 'application/octet-stream';
     }
     else if (undefined !== body) {
       encBody = JSON.stringify(body);
-      this.headers.add('content-type', 'application/json');
+      contentType = 'application/json';
     }
     else {
       // noop.  no body
+    }
+    // don't clobber existing header. only set if
+    // no content-type header currently exists
+    // fixes #3
+    if (undefined === this.headers.get('content-type')) {
+      this.headers.add('content-type', contentType);
     }
     return {
       statusCode,
