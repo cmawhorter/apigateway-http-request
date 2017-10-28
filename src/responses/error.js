@@ -26,3 +26,4 @@ ErrorResponse.NETWORK          = 'network_error';
 ErrorResponse.API              = 'api_error';
 ErrorResponse.AUTH             = 'authentication_error';
 ErrorResponse.INVALID_REQUEST  = 'invalid_request_error';
+ErrorResponse.NOT_FOUND        = 'not_found';
