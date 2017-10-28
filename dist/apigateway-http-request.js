@@ -894,14 +894,21 @@ var BaseResponse = function (_HttpMessage) {
       var statusCode = this.statusCode;
       var body = this.toResponse();
       var encBody = null;
+      var contentType = 'text/plain';
       if (Buffer.isBuffer(body)) {
         encBody = body.toString('base64');
-        this.headers.add('content-type', 'application/octet-stream');
+        contentType = 'application/octet-stream';
       } else if (undefined !== body) {
         encBody = JSON.stringify(body);
-        this.headers.add('content-type', 'application/json');
-      } else {
-        // noop.  no body
+        contentType = 'application/json';
+      } else {}
+      // noop.  no body
+
+      // don't clobber existing header. only set if
+      // no content-type header currently exists
+      // fixes #3
+      if (undefined === this.headers.get('content-type')) {
+        this.headers.add('content-type', contentType);
       }
       return {
         statusCode: statusCode,
@@ -958,6 +965,7 @@ ErrorResponse.NETWORK = 'network_error';
 ErrorResponse.API = 'api_error';
 ErrorResponse.AUTH = 'authentication_error';
 ErrorResponse.INVALID_REQUEST = 'invalid_request_error';
+ErrorResponse.NOT_FOUND = 'not_found';
 
 var SuccessResponse = function (_BaseResponse) {
   inherits(SuccessResponse, _BaseResponse);

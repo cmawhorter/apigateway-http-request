@@ -1,6 +1,6 @@
 {
   "name": "apigateway-http-request",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "main": "./dist/apigateway-http-request.cjs.js",
   "module": "./dist/apigateway-http-request.es2015.js",
   "jsnext:main": "./dist/apigateway-http-request.es2015.js",
