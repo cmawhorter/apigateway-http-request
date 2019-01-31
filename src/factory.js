@@ -1,6 +1,16 @@
 import ApigatewayHttpRequest from './requests/apigateway-http-request.js';
 
-export function fromIncomingEvent(event, requestId) {
+// bc default decode fn
+export function decodeBody(body, isBase64Encoded) {
+  if (typeof body === 'string') {
+    return isBase64Encoded ? new Buffer(body, 'base64').toString() : JSON.parse(body);
+  }
+  else {
+    return null;
+  }
+}
+
+export function fromIncomingEvent(event, requestId, decodingFn = decodeBody) {
   let requestContext  = event.requestContext;
   let headers         = event.headers || {};
   let body            = event.body || null;
@@ -14,11 +24,12 @@ export function fromIncomingEvent(event, requestId) {
     querystring:  event.queryStringParameters,
     context:      requestContext,
   });
-  if (event.isBase64Encoded) {
-    request.body = new Buffer(body, 'base64').toString();
+  try {
+    request.body = decodingFn(body, event.isBase64Encoded);
   }
-  else if (typeof body === 'string') {
-    request.body = JSON.parse(body);
+  catch (err) {
+    console.log('Warning: Unable to decode incoming request body. Leaving it raw.', err);
+    request.body = body; // pass through raw if decoding fails
   }
   return request;
 }
