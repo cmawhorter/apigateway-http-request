@@ -981,7 +981,18 @@ var SuccessResponse = function (_BaseResponse) {
   return SuccessResponse;
 }(BaseResponse);
 
+// bc default decode fn
+function decodeBody(body, isBase64Encoded) {
+  if (typeof body === 'string') {
+    return isBase64Encoded ? new Buffer(body, 'base64').toString() : JSON.parse(body);
+  } else {
+    return null;
+  }
+}
+
 function fromIncomingEvent(event, requestId) {
+  var decodingFn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : decodeBody;
+
   var requestContext = event.requestContext;
   var headers = event.headers || {};
   var body = event.body || null;
@@ -995,10 +1006,11 @@ function fromIncomingEvent(event, requestId) {
     querystring: event.queryStringParameters,
     context: requestContext
   });
-  if (event.isBase64Encoded) {
-    request.body = new Buffer(body, 'base64').toString();
-  } else if (typeof body === 'string') {
-    request.body = JSON.parse(body);
+  try {
+    request.body = decodingFn(body, event.isBase64Encoded);
+  } catch (err) {
+    console.log('Warning: Unable to decode incoming request body. Leaving it raw.', err);
+    request.body = body; // pass through raw if decoding fails
   }
   return request;
 }

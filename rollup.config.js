@@ -24,6 +24,5 @@ export default {
   targets: [
     { dest: 'dist/apigateway-http-request.cjs.js',      format: 'cjs' },
     { dest: 'dist/apigateway-http-request.es2015.js',   format: 'es' },
-    { dest: 'dist/apigateway-http-request.js',          format: 'iife',  moduleName: 'Bondo' },
   ],
 }
